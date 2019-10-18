@@ -1,0 +1,14 @@
+version: "3.7"
+services:
+  server:
+    build:
+      context: .
+      args:
+        - TARGET=vpnserver
+    image: grncbg/softether-server
+    ports:
+      - "443:443/tcp"
+      - "992:992/tcp"
+      - "1194:1194"
+      - "500:500/udp"
+      - "4500:4500/udp"
