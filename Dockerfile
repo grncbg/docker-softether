@@ -20,3 +20,18 @@ RUN ./configure && \
 
 ARG TARGET
 RUN make -C tmp ${TARGET}
+
+
+FROM alpine
+
+RUN apk --update add \
+    readline
+
+ARG TARGET
+WORKDIR /usr/local/${TARGET}
+
+COPY --from=builder /usr/local/src/SoftEtherVPN/build .
+
+ENV LD_LIBRARY_PATH /usr/local/${TARGET}
+ENV TARGET ${TARGET}
+CMD /usr/local/$TARGET/$TARGET execsvc
