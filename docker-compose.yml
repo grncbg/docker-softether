@@ -12,3 +12,5 @@ services:
       - "1194:1194"
       - "500:500/udp"
       - "4500:4500/udp"
+    volumes:
+      - ./config:/usr/local/vpnserver/config

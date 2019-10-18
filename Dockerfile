@@ -30,6 +30,13 @@ RUN apk --update add \
 ARG TARGET
 WORKDIR /usr/local/${TARGET}
 
+RUN CONFIG_NAME=`echo ${TARGET} | sed s/vpn/vpn_/` && \
+    mkdir config && \
+    ln -s config/$CONFIG_NAME.config $CONFIG_NAME.config && \
+    mkdir config/backup.$CONFIG_NAME.config && \
+    ln -s config/backup.$CONFIG_NAME.config backup.$CONFIG_NAME.config &&\
+    ln -s config/lang.config lang.config
+
 COPY --from=builder /usr/local/src/SoftEtherVPN/build .
 
 ENV LD_LIBRARY_PATH /usr/local/${TARGET}
